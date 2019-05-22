@@ -2,4 +2,5 @@ subcomponents:
   hello-rings:
     config:
       image:
+        repository: hellorings.azurecr.io/hellorings
         tag: master-3521
