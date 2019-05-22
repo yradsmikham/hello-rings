@@ -10,5 +10,5 @@ steps:
     containerRegistry: 'hellorings_acr'
     repository: 'hellorings'
     command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+    Dockerfile: '**/src/Dockerfile'
     tags: '$(Build.SourceBranchName)-$(Build.BuildId)'
