@@ -2,4 +2,4 @@ subcomponents:
   hello-rings:
     config:
       image:
-        tag: master-3520
+        tag: master-3521
