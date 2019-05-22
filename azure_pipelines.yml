@@ -1,0 +1,14 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'hellorings_acr'
+    repository: 'hellorings'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: '$(Build.SourceBranchName)-$(Build.BuildId)'
