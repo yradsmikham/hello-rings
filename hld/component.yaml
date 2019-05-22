@@ -1,0 +1,3 @@
+name: hello-rings
+generator: "helm"
+path: "../hello-rings-chart"

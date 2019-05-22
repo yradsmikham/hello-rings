@@ -1,0 +1,23 @@
+---
+# Source: hello-ring/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-rings
+  labels:
+    app.kubernetes.io/name: hello-ring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: hello-ring
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: hello-ring
+    spec:
+      containers:
+        - name: hello-ring
+          image: "myRepo:myTag"
+          imagePullPolicy: IfNotPresent
+
