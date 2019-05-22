@@ -2,4 +2,4 @@ subcomponents:
   hello-rings:
     config:
       image:
-        tag: $(Build.SourceBranchName)-master-3516
+        tag: $(Build.SourceBranchName)-master-3517
