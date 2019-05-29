@@ -1,15 +1,22 @@
-apiVersion: v1
-kind: Pod
+apiVersion: ring.microsoft.com/v1alpha1
+kind: Ring
 metadata:
-  name: prod-ring-crd
-  labels:
-    ring: prod
+  name: master
 spec:
-  containers:
-  - image: busybox
-    command:
-      - sleep
-      - "3600"
-    imagePullPolicy: IfNotPresent
-    name: busybox
-  restartPolicy: Always
+  # Deploy to environment
+  deploy: true
+  # Custom Claims
+  claim: production
+  entryPoints:
+    # Source of traffic (eg: 80 or 443)
+    - web
+    - web-secured
+  match: PathPrefix(`/query/v1`) && Headers(`x-ring`, `production`)
+  selector:
+  # Target deployment instances
+    # name of microservice
+    name: query
+    # Major version of microservice
+    version: v1
+    # Branch name
+    ring: production
