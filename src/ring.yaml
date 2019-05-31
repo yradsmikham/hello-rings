@@ -1,17 +1,17 @@
 apiVersion: ring.microsoft.com/v1alpha1
 kind: Ring
 metadata:
-  name: master
+  name: featureA
 spec:
   # Deploy to environment
   deploy: true
   # Custom Claims
-  claim: production
+  claim: featureA
   entryPoints:
     # Source of traffic (eg: 80 or 443)
     - web
     - web-secured
-  match: PathPrefix(`/query/v1`) && Headers(`x-ring`, `production`)
+  match: PathPrefix(`/query/v1`) && Headers(`x-ring`, `featureA`)
   selector:
   # Target deployment instances
     # name of microservice
@@ -19,4 +19,4 @@ spec:
     # Major version of microservice
     version: v1
     # Branch name
-    ring: production
+    ring: featureA
