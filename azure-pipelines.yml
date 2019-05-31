@@ -16,4 +16,4 @@ steps:
     repository: 'hellorings'
     command: 'buildAndPush'
     Dockerfile: '**/src/Dockerfile'
-    tags: 'hello-rings-$(Build.SourceBranchName)-$(Build.BuildId)'
+    tags: '$(Build.Repository.Name)-$(Build.SourceBranchName)-$(Build.BuildId)'
