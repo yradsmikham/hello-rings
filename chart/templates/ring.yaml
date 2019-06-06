@@ -19,4 +19,4 @@ spec:
     # Major version of microservice
     version: v1
     # Branch name
-    ring: hello-ring
+    ring: production
