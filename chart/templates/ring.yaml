@@ -1,22 +1,18 @@
-apiVersion: ring.microsoft.com/v1alpha1
+# Source: hello-ring/templates/ring.yaml
+apiVersion: rings.microsoft.com/v1alpha1
 kind: Ring
 metadata:
-  name: featureB
+  name: featureb
 spec:
   # Deploy to environment
   deploy: true
   # Custom Claims
-  claim: featureB
+  claim: featureb
   entryPoints:
     # Source of traffic (eg: 80 or 443)
-    - web
-    - web-secured
-  match: PathPrefix(`/query/v1`) && Headers(`x-ring`, `featureB`)
+    - http
+    - https
+    - internal
+  match: PathPrefix(`/query/v1`) && Headers(`x-ring`, `featureb`)
   selector:
-  # Target deployment instances
-    # name of microservice
-    name: query
-    # Major version of microservice
-    version: v1
-    # Branch name
-    ring: featureB
+    app.kubernetes.io/name: hello-rings-featureb
