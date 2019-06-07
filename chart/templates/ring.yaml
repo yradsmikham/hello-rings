@@ -1,4 +1,5 @@
-apiVersion: ring.microsoft.com/v1alpha1
+# Source: hello-ring/templates/ring.yaml
+apiVersion: rings.microsoft.com/v1alpha1
 kind: Ring
 metadata:
   name: master
@@ -9,14 +10,9 @@ spec:
   claim: production
   entryPoints:
     # Source of traffic (eg: 80 or 443)
-    - web
-    - web-secured
+    - http
+    - https
+    - internal
   match: PathPrefix(`/query/v1`) && Headers(`x-ring`, `production`)
   selector:
-  # Target deployment instances
-    # name of microservice
-    name: query
-    # Major version of microservice
-    version: v1
-    # Branch name
-    ring: production
+    app.kubernetes.io/name: hello-rings-master
