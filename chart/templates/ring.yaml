@@ -15,4 +15,4 @@ spec:
     - internal
   match: PathPrefix(`/query/v1`) && Headers(`x-ring`, `featureb`)
   selector:
-    app.kubernetes.io/name: hello-rings-featureb
+    app.kubernetes.io/name: {{ include "hello-ring.name" . }}
