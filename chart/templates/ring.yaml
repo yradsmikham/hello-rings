@@ -13,6 +13,6 @@ spec:
     - http
     - https
     - internal
-  match: PathPrefix(`/query/v1`) && Headers(`x-ring`, `production`)
+  match: PPathPrefix(`/`) && Headers(`x-ring`, `production`)
   selector:
     app.kubernetes.io/name: {{ include "hello-ring.name" . }}
