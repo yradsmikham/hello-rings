@@ -9,7 +9,9 @@ const HOST = '0.0.0.0';
 // App
 const app = express();
 app.get('/', (req, res) => {
-  res.send('Hello world\n');
+  const ringHeader = req.header('x-ring');
+
+  res.send(`Hello world from the ${ringHeader} ring`);
 });
 
 app.listen(PORT, HOST);
