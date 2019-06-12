@@ -11,7 +11,7 @@ const app = express();
 app.get('/', (req, res) => {
   const ringHeader = req.header('x-ring');
 
-  res.send(`Hello world from the ${ringHeader} ring. This is the best ring!`);
+  res.send(`Hello world from the ${ringHeader} ring. This is the best ring ever!`);
 });
 
 app.listen(PORT, HOST);

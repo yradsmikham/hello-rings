@@ -2,17 +2,17 @@
 apiVersion: rings.microsoft.com/v1alpha1
 kind: Ring
 metadata:
-  name: master
+  name: featurec
 spec:
   # Deploy to environment
   deploy: true
   # Custom Claims
-  claim: production
+  claim: featurec
   entryPoints:
     # Source of traffic (eg: 80 or 443)
     - http
     - https
     - internal
-  match: PPathPrefix(`/`) && Headers(`x-ring`, `production`)
+  match: PPathPrefix(`/`) && Headers(`x-ring`, `featurec`)
   selector:
     app.kubernetes.io/name: {{ include "hello-ring.name" . }}
