@@ -11,6 +11,7 @@ image:
   pullPolicy: IfNotPresent
 
 application:
+  name: "hello-rings-featurea"
   ports:
     - containerPort: 8080
   selector:
