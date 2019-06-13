@@ -2,6 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+deploy: true
 replicaCount: 1
 
 image:
@@ -9,5 +10,12 @@ image:
   tag: myTag
   pullPolicy: IfNotPresent
 
-nameOverride: ""
-fullnameOverride: ""
+application:
+  ports:
+    - containerPort: 8080
+  selector:
+    app.kubernetes.io/name: "hello-rings-featureb"
+ring:
+  name: featureb
+  claim: featureb
+  matchRequest: PathPrefix(`/`) && Headers(`x-ring`, `featureb`)
