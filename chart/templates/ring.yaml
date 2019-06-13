@@ -2,17 +2,17 @@
 apiVersion: rings.microsoft.com/v1alpha1
 kind: Ring
 metadata:
-  name: featurec
+  name: {{ .Values.ring.name }}
 spec:
   # Deploy to environment
-  deploy: true
+  deploy: {{ .Values.deploy }}
   # Custom Claims
-  claim: featurec
+  claim: {{ .Values.ring.claim }}
   entryPoints:
     # Source of traffic (eg: 80 or 443)
     - http
     - https
     - internal
-  match: PPathPrefix(`/`) && Headers(`x-ring`, `featurec`)
+  match: {{ .Values.ring.matchRequest }}
   selector:
-    app.kubernetes.io/name: {{ include "hello-ring.name" . }}
+    {{ toYaml .Values.application.selector }}

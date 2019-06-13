@@ -8,15 +8,15 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "hello-ring.name" . }}
+      {{ toYaml .Values.application.selector }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "hello-ring.name" . }}
+        {{ toYaml .Values.application.selector }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports: 
-            - containerPort: 8080
+          ports:
+            {{ toYaml .Values.application.ports }}
