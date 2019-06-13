@@ -1,9 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "hello-ring.fullname" . }}
+  name: {{ .Values.application.name }}
   labels:
-    app.kubernetes.io/name: {{ include "hello-ring.name" . }}
+    app.kubernetes.io/name: {{ .Values.application.name }}
+    ring: {{ .Values.ring.name }}
+    claim: {{ .Values.ring.claim }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
