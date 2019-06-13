@@ -1,17 +1,17 @@
 apiVersion: rings.microsoft.com/v1alpha1
 kind: Ring
 metadata:
-  name: featurea
+  name: {{ .Values.ring.name }}
 spec:
   # Deploy to environment
-  deploy: true
+  deploy: {{ .Values.deploy }}
   # Custom Claims
-  claim: featurea
+  claim: {{ .Values.ring.claim }}
   entryPoints:
     # Source of traffic (eg: 80 or 443)
     - http
     - https
     - internal
-  match: PathPrefix(`/`) && Headers(`x-ring`, `featurea`)
+  match: {{ .Values.ring.matchRequest }}
   selector:
-    app.kubernetes.io/name: {{ include "hello-ring.name" . }}
+    {{ toYaml .Values.application.selector }}
