@@ -11,10 +11,12 @@ image:
   pullPolicy: IfNotPresent
 
 application:
+  name: "hello-rings-featurec"
   ports:
     - containerPort: 8080
   selector:
     app.kubernetes.io/name: "hello-rings-featurec"
+
 ring:
   name: featurec
   claim: featurec
