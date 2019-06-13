@@ -14,8 +14,8 @@ application:
   ports:
     - containerPort: 8080
   selector:
-    app.kubernetes.io/name: "hello-rings-master"
+    app.kubernetes.io/name: "hello-rings-featurea"
 ring:
-  name: production
-  claim: production
-  matchRequest: PathPrefix(`/`) && Headers(`x-ring`, `production`)
+  name: featurea
+  claim: featurea
+  matchRequest: PathPrefix(`/`) && Headers(`x-ring`, `featurea`)
