@@ -2,11 +2,9 @@ trigger:
   branches:
     include:
     - master
-    - featureA
     - '*'
   paths:
     include:
-    - src/*
     - '*'
 
 pool:
@@ -15,8 +13,8 @@ pool:
 steps:
 - task: Docker@2
   inputs:
-    containerRegistry: 'hellorings_acr'
-    repository: 'hellorings'
+    containerRegistry: 'ydawgie_hellorings_acr'
+    repository: 'gc_hellorings_test'
     command: 'buildAndPush'
     Dockerfile: '**/src/Dockerfile'
     tags: 'hello-rings-$(Build.SourceBranchName)-$(Build.BuildId)'
