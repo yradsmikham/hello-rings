@@ -1,20 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.application.name }}
+  name: {{ .Values.serviceName }}-{{ .Values.majorVersion }}-{{ .Values.ringName }}
   labels:
-    app.kubernetes.io/name: {{ .Values.application.name }}
-    ring: {{ .Values.ring.name }}
-    claim: {{ .Values.ring.claim }}
+    name: {{ .Values.serviceName }}
+    version: {{ .Values.majorVersion }}
+    ring: {{ .Values.ringName }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.application.replicaCount }}
   selector:
     matchLabels:
-      {{ toYaml .Values.application.selector }}
+      name: {{ .Values.serviceName }}
+      version: {{ .Values.majorVersion }}
+      ring: {{ .Values.ringName }}
   template:
     metadata:
       labels:
-        {{ toYaml .Values.application.selector }}
+        name: {{ .Values.serviceName }}
+        version: {{ .Values.majorVersion }}
+        ring: {{ .Values.ringName }}
     spec:
       containers:
         - name: {{ .Chart.Name }}

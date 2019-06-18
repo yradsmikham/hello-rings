@@ -2,17 +2,23 @@
 apiVersion: rings.microsoft.com/v1alpha1
 kind: Ring
 metadata:
-  name: {{ .Values.ring.name }}
+  name: {{ .Values.serviceName }}-{{ .Values.majorVersion }}-{{ .Values.ringName }}
+  author: {{ .Values.author }} # Set by pipeline
+  branchName: {{ .Values.branchName }} # Set by pipeline
+  buildId: {{ .Values.buildId }} # Set by pipeline
+  buildDate: {{ .Values.buildDate }} # Set by pipeline
+  commitId: {{ .Values.commitId }} # Set by pipeline
 spec:
   # Deploy to environment
   deploy: {{ .Values.deploy }}
-  # Custom Claims
-  claim: {{ .Values.ring.claim }}
+  claim: {{ .Values.ringName }}
   entryPoints:
     # Source of traffic (eg: 80 or 443)
     - http
     - https
     - internal
-  match: {{ .Values.ring.matchRequest }}
+  match: PathPrefix(`/{{ .Values.serviceName }}/{{ .Values.majorVersion }}`) && Headers(`x-ring`, `{{ .Values.ringName }}`)
   selector:
-    {{ toYaml .Values.application.selector }}
+    name: {{ .Values.serviceName }}
+    version: {{ .Values.majorVersion }}
+    ring: {{ .Values.ringName }}
