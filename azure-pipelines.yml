@@ -13,7 +13,7 @@ pool:
 steps:
 - task: Docker@2
   inputs:
-    containerRegistry: 'yradsmik-acr-connection'
+    containerRegistry: 'hello-rings-acr'
     repository: 'gc_hellorings_test'
     command: 'buildAndPush'
     Dockerfile: '**/src/Dockerfile'
