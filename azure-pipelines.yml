@@ -17,4 +17,4 @@ steps:
     repository: 'gc_hellorings_test'
     command: 'buildAndPush'
     Dockerfile: '**/src/Dockerfile'
-    tags: 'hello-rings-$(Build.SourceBranchName)-$(Build.BuildId)'
+    tags: 'gc-hello-rings-$(Build.SourceBranchName)-$(Build.BuildId)'
