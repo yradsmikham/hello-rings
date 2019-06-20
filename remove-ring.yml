@@ -1,0 +1,71 @@
+trigger:
+  branches:
+    include:
+    - '*'
+  paths:
+    include:
+    - '*'
+
+jobs:
+- job: RingRemoval
+  displayName: ring_removal
+  timeoutInMinutes: 90
+  pool:
+    vmImage: 'Ubuntu-16.04'
+    timeoutInMinutes: 90
+  steps:
+  - script: |
+      git push origin --delete $(Build.SourceBranchName)
+    displayName: 'Delete Git Branch'
+  - script: |
+      # download build.sh from microsoft/bedrock
+      curl https://raw.githubusercontent.com/Microsoft/bedrock/master/gitops/azure-devops/build.sh > build.sh
+      chmod +x ./build.sh
+
+      # install hub
+      sudo add-apt-repository ppa:cpick/hub
+      sudo apt-get update
+      sudo apt-get install hub
+
+      # source build.sh
+      . build.sh --source-only
+
+      # execute build.sh functions
+      verify_access_token
+      init
+      helm init
+      get_os
+      get_fab_version
+      download_fab
+      git_connect
+
+      # extract branch name from the full subcomponent
+      #branch_name=$(echo ${subcomponent##*-})
+      branch_name = $(Build.SourceBranchName)
+
+      echo "FAB REMOVE"
+      fab remove $subcomponent --source "https://github.com/bnookala/hello-rings" --branch $branch_name --method git --path chart --type helm
+
+      echo "GIT ADD"
+      git add -A
+
+      pr_branch_name=pr_$branch_name_removal
+      git checkout -b $pr_branch_name
+
+      # Set git identity
+      git config user.email "admin@azuredevops.com"
+      git config user.name "Automated Account"
+
+      echo "GIT COMMIT"
+      git commit -m "Deleting ring $branch_name"
+
+      echo "GIT PUSH"
+      git_push origin $pr_branch_name
+
+      export GITHUB_TOKEN=$ACCESS_TOKEN_SECRET
+      hub version
+      hub pull-request -m "Removing RING $branch_name"
+    displayName: 'Remove Subcomponent'
+  - script: |
+      az --version
+    displayName: 'Manifest Generation'
