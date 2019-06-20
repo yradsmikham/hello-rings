@@ -13,7 +13,7 @@ jobs:
   pool:
     vmImage: 'Ubuntu-16.04'
     timeoutInMinutes: 90
-
+  steps:
   - script: |
       git push origin --delete $(Build.SourceBranchName)
     displayName: 'Delete Git Branch'
