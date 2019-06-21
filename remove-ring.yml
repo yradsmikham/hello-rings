@@ -15,7 +15,10 @@ jobs:
     timeoutInMinutes: 90
   steps:
   - script: |
-      git push origin --delete $(Build.SourceBranchName)
+      repo_url=$SRC_REPO
+      repo_url="${repo_url#http://}"
+      repo_url="${repo_url#https://}"
+      git push "https://$ACCESS_TOKEN_SECRET@$repo_url" --delete $(Build.SourceBranchName)
     displayName: 'Delete Git Branch'
   - script: |
       # download build.sh from microsoft/bedrock
@@ -40,16 +43,15 @@ jobs:
       git_connect
 
       # extract branch name from the full subcomponent
-      #branch_name=$(echo ${subcomponent##*-})
-      branch_name = $(Build.SourceBranchName)
+      branch_name=$(Build.SourceBranchName)
 
       echo "FAB REMOVE"
-      fab remove $subcomponent --source "https://github.com/bnookala/hello-rings" --branch $branch_name --method git --path chart --type helm
+      fab remove hello-rings-$branch_name
 
       echo "GIT ADD"
       git add -A
 
-      pr_branch_name=pr_$branch_name_removal
+      pr_branch_name="PR_Ring_Removal_$branch_name"
       git checkout -b $pr_branch_name
 
       # Set git identity
@@ -66,6 +68,3 @@ jobs:
       hub version
       hub pull-request -m "Removing RING $branch_name"
     displayName: 'Remove Subcomponent'
-  - script: |
-      az --version
-    displayName: 'Manifest Generation'
