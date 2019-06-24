@@ -45,7 +45,7 @@ jobs:
 
       # run 'fab remove' to remove ring
       echo "FAB REMOVE"
-      fab remove hello-rings-$branch_name
+      fab remove gc-hello-rings-$branch_name
 
       echo "GIT ADD"
       git add -A
