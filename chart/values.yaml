@@ -7,6 +7,8 @@ majorVersion: "v1"
 ringName: "master"
 deploy: true
 
+# This should be set by the build pipeline in future, and this will be the default when that 
+# fab set fails
 author: "Mike Developer"
 branchName: "my-branch"
 buildId: "12345"
