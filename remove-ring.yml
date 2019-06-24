@@ -1,3 +1,8 @@
+trigger:
+  branches:
+    include:
+    - 'ydawgie'
+
 jobs:
 - job: RingRemoval
   displayName: ring_removal
