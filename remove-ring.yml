@@ -1,10 +1,7 @@
 trigger:
   branches:
     include:
-    - '*'
-  paths:
-    include:
-    - '*'
+    - 'ydawgie'
 
 jobs:
 - job: RingRemoval
