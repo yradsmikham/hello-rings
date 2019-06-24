@@ -1,10 +1,10 @@
 trigger:
   branches:
     include:
-    - master
+    - '*'
   paths:
     include:
-    - src/*
+    - 'remove-ring.yml'
 
 pool:
   vmImage: 'ubuntu-latest'
