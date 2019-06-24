@@ -39,8 +39,9 @@ jobs:
       download_fab
       git_connect
 
-      # extract branch name from the full subcomponent
+      # extract branch name and build # from the full subcomponent
       branch_name=$(Build.SourceBranchName)
+      build_id=$(Build.BuildNumber)
 
       # run 'fab remove' to remove ring
       echo "FAB REMOVE"
@@ -49,7 +50,7 @@ jobs:
       echo "GIT ADD"
       git add -A
 
-      pr_branch_name="PR_ring_removal_$branch_name"
+      pr_branch_name="PR-ring-removal-$branch_name-$build_id"
       git checkout -b $pr_branch_name
 
       # set git identity
