@@ -63,6 +63,8 @@ jobs:
       echo "GIT PUSH"
       git_push origin $pr_branch_name
 
+      sleep 10
+
       # create pull request using hub
       export GITHUB_TOKEN=$ACCESS_TOKEN_SECRET
       hub version
