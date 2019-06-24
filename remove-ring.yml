@@ -1,11 +1,3 @@
-trigger:
-  branches:
-    include:
-    - '*'
-  paths:
-    include:
-    - '*'
-
 jobs:
 - job: RingRemoval
   displayName: ring_removal
@@ -25,7 +17,7 @@ jobs:
       curl https://raw.githubusercontent.com/Microsoft/bedrock/master/gitops/azure-devops/build.sh > build.sh
       chmod +x ./build.sh
 
-      # install hub
+      # install hub if using GitHub repos
       sudo add-apt-repository ppa:cpick/hub
       sudo apt-get update
       sudo apt-get install hub
@@ -45,16 +37,17 @@ jobs:
       # extract branch name from the full subcomponent
       branch_name=$(Build.SourceBranchName)
 
+      # run 'fab remove' to remove ring
       echo "FAB REMOVE"
       fab remove hello-rings-$branch_name
 
       echo "GIT ADD"
       git add -A
 
-      pr_branch_name="PR_Ring_Removal_$branch_name"
+      pr_branch_name="PR_ring_removal_$branch_name"
       git checkout -b $pr_branch_name
 
-      # Set git identity
+      # set git identity
       git config user.email "admin@azuredevops.com"
       git config user.name "Automated Account"
 
@@ -64,6 +57,7 @@ jobs:
       echo "GIT PUSH"
       git_push origin $pr_branch_name
 
+      # create pull request using hub
       export GITHUB_TOKEN=$ACCESS_TOKEN_SECRET
       hub version
       hub pull-request -m "Removing RING $branch_name"
