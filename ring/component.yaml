@@ -1,7 +1,7 @@
-- name: hello-rings
-  subcomponents:
-  - name: ring
-    source: https://github.com/bnookala/hello-rings-helm
-    type: helm
-    method: git
-    path: ring-chart
+name: hello-rings
+subcomponents:
+- name: ring
+  source: https://github.com/bnookala/hello-rings-helm
+  type: helm
+  method: git
+  path: ring-chart
