@@ -42,10 +42,13 @@ jobs:
       # extract branch name and build # from the full subcomponent
       branch_name=$(Build.SourceBranchName)
       build_id=$(Build.BuildId)
+      repo_name=$(Build.Repository.Name)
+      repo="${repo_name#*/}"
 
       # run 'fab remove' to remove ring
       echo "FAB REMOVE"
-      fab remove gc-hello-rings-$branch_name
+      fab remove gc-$repo-$branch_name
+      # need to specify the subcomponent as an environment variable (e.g. "hello-rings-featurea")
 
       echo "GIT ADD"
       git add -A
