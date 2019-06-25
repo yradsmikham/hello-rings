@@ -1,0 +1,6 @@
+config:
+  serviceName: "hello-rings"
+  majorVersion: "v1"
+  ringName: "master"
+  group: "CORE"
+  contact: bhargav@hellorings.com
