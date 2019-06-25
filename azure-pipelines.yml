@@ -4,7 +4,7 @@ trigger:
     - '*'
   paths:
     include:
-    - 'remove-ring.yml'
+    - '*'
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -13,7 +13,7 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'hello-rings-acr'
-    repository: 'gc_hellorings_test'
+    repository: 'hellorings'
     command: 'buildAndPush'
     Dockerfile: '**/src/Dockerfile'
     tags: 'hello-rings-$(Build.SourceBranchName)-$(Build.BuildId)'
