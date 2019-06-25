@@ -20,3 +20,13 @@ steps:
     command: 'buildAndPush'
     Dockerfile: '**/src/Dockerfile'
     tags: 'hello-rings-$(Build.SourceBranchName)-$(Build.BuildId)'
+
+- bash: |
+    git checkout origin/master ring/config/common.yaml
+    git add ring/config/common.yaml
+    git commit -m "Updating the ring config to match master"
+    git push origin $BRANCH_NAME
+  displayName: Update ring.yaml to master on PR
+  condition: eq(variables['Build.Reason'], 'PullRequest')
+  env:
+    BRANCH_NAME: $(Build.SourceBranchName)
