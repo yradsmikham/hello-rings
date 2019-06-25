@@ -20,6 +20,7 @@ steps:
     command: 'buildAndPush'
     Dockerfile: '**/src/Dockerfile'
     tags: 'hello-rings-$(Build.SourceBranchName)-$(Build.BuildId)'
+  condition: ne(variables['Build.Reason'], 'PullRequest')
 
 - bash: |
     git checkout origin/master ring/config/common.yaml
