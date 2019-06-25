@@ -16,4 +16,17 @@ steps:
     repository: 'gc_hellorings_test'
     command: 'buildAndPush'
     Dockerfile: '**/src/Dockerfile'
-    tags: 'gc-hello-rings-$(Build.SourceBranchName)-$(Build.BuildId)'
+    tags: 'hello-rings-$(Build.SourceBranchName)-$(Build.BuildId)'
+  condition: ne(variables['Build.Reason'], 'PullRequest')
+
+- bash: |
+    git checkout origin/master ring/config/common.yaml
+    git add ring/config/common.yaml
+    git config --global user.email "you@example.com"
+    git config --global user.name "Bot"
+    git commit -m "Updating the ring config to match master"
+    git push https://$ACCESS_TOKEN@github.com/bnookala/hello-rings origin $BRANCH_NAME
+  displayName: Update ring.yaml to master on PR
+  condition: eq(variables['Build.Reason'], 'PullRequest')
+  env:
+    BRANCH_NAME: $(Build.SourceBranchName)
