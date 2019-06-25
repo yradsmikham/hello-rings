@@ -12,7 +12,7 @@ pool:
 steps:
 - task: Docker@2
   inputs:
-    containerRegistry: 'hello-rings-acr'
+    containerRegistry: 'hellorings_acr'
     repository: 'hellorings'
     command: 'buildAndPush'
     Dockerfile: '**/src/Dockerfile'
